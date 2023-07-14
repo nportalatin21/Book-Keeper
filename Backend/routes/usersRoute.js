@@ -40,4 +40,13 @@ userRoute.delete('/api/users/:id', (req,res) =>{
     });
 
 
+//fetch users
+
+userRoute.get('/api/users', (req,res) =>{
+    res.send('Fetch route') 
+    
+    });
+    
+
+
 module.exports = userRoute;

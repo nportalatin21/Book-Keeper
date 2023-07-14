@@ -36,13 +36,6 @@ app.use('/api/users', userRoute);
     
 
     
-//fetch users
-
-app.get('/api/users', (req,res) =>{
-    res.send('Fetch route') 
-    
-    });
-    
 
 
 //Server
