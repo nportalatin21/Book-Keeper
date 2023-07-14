@@ -1,45 +1,27 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const dbConnect = require('./config/dbConnect');
-const User = require('./models/User')
-const userRoute = require('./routes/usersRoute')
+const dotenv = require('dotenv');
+const error = require('./middlewares/errorMiddlewareHandler');
+const usersRoute = require('./routes/usersRoute');
+const bookRouter = require('./routes/bookRoutes');
+dotenv.config();
+require('./config/dbConnect')();
 
 const app = express();
 
-// console.log(app)
-
-//DB connect
-dbConnect();
-
-
-// Passing body data Middelware
-// app.use(bodyParser.json()); // Parse JSON bodies
-// app.use(bodyParser.urlencoded({ extended: true }));
+//Passing body data
 app.use(express.json());
 
+//Routes
+//Users
+app.use('/api/users', usersRoute);
+//Books
+app.use('/api/books', bookRouter);
 
-
-
-// mongoose.connect('mongodb+srv://Nico:8OtNzfa1QNNJurZS@cluster0.c8rwyct.mongodb.net/?retryWrites=true&w=majority', {
-//     useFindAndModify: true, 
-//     useUnifiedTopology: true,
-//     useCreateIndex: true,
-//     useNewUrlParser: true,
-
-// }).then(() => console.log('db connected')).catch(err => console.log(err))
-
-//Routes:
-app.use('/api/users', userRoute);
-
-
-
-    
-
-    
-
+//Error middleware
+app.use(error.errorMiddlewareHandler);
 
 //Server
-const PORT = process.env.PORT || 5000
-
-app.listen(5000, () => {
-    console.log(`Server is up and running ${PORT}`)});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is up and runing ${PORT}`);
+});
