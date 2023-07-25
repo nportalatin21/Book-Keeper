@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBooksAction } from '../../redux/actions/books/bookActions';
-import Loading from '../Loading/Loading';
+//import Loading from '../Loading/Loading';
 const Books = () => {
   const dispatch = useDispatch();
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createBookAction } from '../../redux/actions/books/bookActions';
+import { createBookAction, fetchBooksAction } from '../../redux/actions/books/bookActions';
 
 const AddBook = () => {
   const [category, setCategory] = useState('');
@@ -11,7 +11,7 @@ const AddBook = () => {
   const dispatch = useDispatch();
 
   // Handle form submit
-  const handleFormSubmit = e => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     const data = {
@@ -19,8 +19,23 @@ const AddBook = () => {
       author,
       category,
     };
-    dispatch(createBookAction(data));
+    try {
+      // Dispatch the createBookAction
+      await dispatch(createBookAction(data));
+
+      // Fetch the updated list of books after successful creation
+      await dispatch(fetchBooksAction());
+
+      // Clear the form fields after successful creation
+      setCategory('');
+      setTitle('');
+      setAuthor('');
+    } catch (error) {
+      // Handle any errors from the backend
+      console.error('Error creating book:', error);
+    }
   };
+
 
   return (
     <div className='row container-height'>
@@ -32,7 +47,7 @@ const AddBook = () => {
             data-toggle='modal'
             data-target='#exampleModal'
           >
-            Click to add Book.
+            Add Book
           </button>
 
           <div
@@ -68,9 +83,14 @@ const AddBook = () => {
                           className='custom-select'
                         >
                           <option defaultValue='mystery'>Mystery</option>
+                          <option value='fiction'>Fiction</option>
                           <option value='romance'>Romance</option>
-                          <option value='self-help'>Self-help</option>
+                          <option value='self-help'>Self-Help</option>
                           <option value='non-fiction'>Non-fiction</option>
+                          <option value='fantasy'>Fantasy</option>
+                          <option value='poetry'>Poetry</option>
+                          <option value='crime'>Crime</option>
+                          <option value='horror'>Horror</option>
                           <option value='other'>Other</option>
                         </select>
                       </div>
@@ -87,7 +107,7 @@ const AddBook = () => {
                         />
                       </div>
                       <div className='form-group'>
-                        <label htmlFor='exampleInputPassword1'>title</label>
+                        <label htmlFor='exampleInputPassword1'>Title</label>
                         <input
                           value={title}
                           onChange={e => setTitle(e.target.value)}

@@ -1,10 +1,14 @@
 import React from 'react';
-import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AddBook from './componenents/Books/AddBook';
 import Navbar from './componenents/Navbar/Navbar';
-import Home from './componenents/Home/Home'
-import RegisterUser from './componenents/users/RegisterUser'
+import Home from './componenents/Home/Home';
+import RegisterUser from './componenents/users/RegisterUser';
+import LoginUser from './componenents/users/LoginUser';
+import Profile from './componenents/Profile/Profile';
+import UpdateProfile from './componenents/UpdateProfile/UpdateProfile';
+import Users from './componenents/users/Users';
+import Login from './componenents/Login/Login';
 
 function App() {
   return (
@@ -15,7 +19,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/addbook" element={<AddBook />} />
           <Route path="/register" element={<RegisterUser />} />
-          {/* Add more routes for your application */}
+          <Route path="/login" element={<LoginUser />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/user-update" element={<UpdateProfile />} />
+          <Route path="/user" element={<Users />} />
+          <Route path="/LoginPage" element={<Login />} />
         </Routes>
       </div>
     </Router>
@@ -23,33 +31,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-// // import logo from './logo.svg';
-// import './App.css';
-// import { BrowserRouter, Route, Switch } from 'react-router-dom';
-// import AddBook from './componenents/Books/AddBook'
-// import Books from './componenents/Books/Books'
-// import Navbar from './componenents/Navbar/Navbar'
-// //import RegisterUser from './components/users/RegisterUser';
-// // import LoginUser from './components/users/LoginUser';
-//  import Home from './componenents/Home/Home'
-// // import Profile from './components/Profile/Profile';
-
-// function App() {
-//   return (
-//     <>
-//       <Router>
-//         <Navbar />
-//         <Route exact path='/' component={Home} />
-//         <Route exact path='/books' component={Books} />
-//         <Route exact path='/addbook' component={AddBook} />
-//       </Router>
-//     </>
-//   );
-// }
-
-// export default App;
